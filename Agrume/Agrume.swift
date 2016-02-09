@@ -22,6 +22,7 @@ public final class Agrume: UIViewController {
     public typealias DownloadCompletion = (image: UIImage?) -> Void
     
     public var didDismiss: (() -> Void)?
+    public var willScroll: ((index: Int) -> Void)?
     public var didScroll: ((index: Int) -> Void)?
     public var download: ((url: NSURL, completion: DownloadCompletion) -> Void)?
 
@@ -357,6 +358,10 @@ extension Agrume: UICollectionViewDataSource {
 extension Agrume: UICollectionViewDelegate {
 
     public func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        willScroll?(index: indexPath.row)
+    }
+    
+    public func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         didScroll?(index: indexPath.row)
     }
 

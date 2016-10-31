@@ -1,13 +1,11 @@
 Pod::Spec.new do |s|
 
   s.name         = "Agrume"
-  s.version      = "2.0.4"
+  s.version      = "3.0.3"
   s.summary      = "An iOS image viewer written in Swift."
 
   s.description  = <<-DESC
-                   An iOS image viewer written in Swift.
-
-                   * Similar to the popular JTSImageViewController but with support for multiple images
+                   An iOS image viewer written in Swift with support for multiple images.
                    DESC
 
   s.homepage     = "https://github.com/JanGorman/Agrume"

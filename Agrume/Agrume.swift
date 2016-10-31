@@ -471,11 +471,11 @@ extension Agrume: UICollectionViewDelegate {
     return indexPath.item == count
   }
 
-  public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+  public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
       let collectionView = scrollView as! UICollectionView
       let indexPaths = collectionView.indexPathsForVisibleItems
       if indexPaths.count > 0 {
-          var indexPath: NSIndexPath?
+          var indexPath: IndexPath?
           if indexPaths.count == 1 {
               indexPath = indexPaths[0]
           } else {

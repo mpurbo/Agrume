@@ -471,6 +471,24 @@ extension Agrume: UICollectionViewDelegate {
     return indexPath.item == count
   }
 
+  public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+      let collectionView = scrollView as! UICollectionView
+      let indexPaths = collectionView.indexPathsForVisibleItems
+      if indexPaths.count > 0 {
+          var indexPath: NSIndexPath?
+          if indexPaths.count == 1 {
+              indexPath = indexPaths[0]
+          } else {
+              let visibleRect = CGRect(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height)
+              let visiblePoint = CGPoint(x: visibleRect.midX,y :visibleRect.midY)
+              indexPath = collectionView.indexPathForItem(at: visiblePoint)
+          }
+          if let resolvedIndexPath = indexPath {
+              didEndDecelerating?(resolvedIndexPath.row)
+          }
+      }
+  }
+
 }
 
 extension Agrume: AgrumeCellDelegate {
@@ -517,31 +535,6 @@ extension Agrume: AgrumeCellDelegate {
   }
 }
 
-extension Agrume: UICollectionViewDelegate {
-
-    public func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        didScroll?(index: indexPath.row)
-    }
-    
-    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        let collectionView = scrollView as! UICollectionView
-        let indexPaths = collectionView.indexPathsForVisibleItems()
-        if indexPaths.count > 0 {
-            var indexPath: NSIndexPath?
-            if indexPaths.count == 1 {
-                indexPath = indexPaths[0]
-            } else {
-                let visibleRect = CGRectMake(collectionView.contentOffset.x, collectionView.contentOffset.y, collectionView.bounds.size.width, collectionView.bounds.size.height)
-                let visiblePoint = CGPointMake(CGRectGetMidX(visibleRect), CGRectGetMidY(visibleRect))
-                indexPath = collectionView.indexPathForItemAtPoint(visiblePoint)
-            }
-            if let resolvedIndexPath = indexPath {
-                didEndDecelerating?(index: resolvedIndexPath.row)
-            }
-        }
-    }
-}
-    
 extension Agrume {
   
   // MARK: Status Bar
